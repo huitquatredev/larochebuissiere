@@ -12,7 +12,8 @@ const { cuvee, total } = Astro.props;
 <section
   class="cuvee"
   id={cuvee.slug}
-  style={`--c:${cuvee.color};--on:${cuvee.ink}`}
+  data-stacking-cards-item
+  style={`--c:${cuvee.color};--on:${cuvee.ink};z-index:${Number(cuvee.index)}`}
   aria-labelledby={`${cuvee.slug}-name`}
 >
   <header class="cuvee__top">
@@ -21,7 +22,7 @@ const { cuvee, total } = Astro.props;
   </header>
 
   <div class="cuvee__mid">
-    <h2 class="cuvee__name" id={`${cuvee.slug}-name`}>{cuvee.name}</h2>
+    <h2 class="cuvee__name" id={`${cuvee.slug}-name`} data-stacking-cards-title>{cuvee.name}</h2>
   </div>
 
   <footer class="cuvee__foot">

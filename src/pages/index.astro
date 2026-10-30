@@ -269,4 +269,45 @@ const total = String(cuvees.length).padStart(2, '0');
     </div>
   </footer>
 
+  <script>
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    const cards = gsap.utils.toArray<HTMLElement>('[data-stacking-cards-item]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    if (cards.length > 1 && !reduceMotion.matches) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      cards.forEach((card, i) => {
+        // La première cuvée reste en place : ce sont les suivantes qui empilent.
+        if (i === 0) return;
+
+        const previousCard = cards[i - 1];
+        const previousTitle = previousCard.querySelector<HTMLElement>(
+          '[data-stacking-cards-title]',
+        );
+
+        const tl = gsap.timeline({
+          defaults: { ease: 'none', duration: 1 },
+          scrollTrigger: {
+            trigger: card,
+            start: 'top bottom',
+            end: 'top top',
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        tl.fromTo(previousCard, { yPercent: 0 }, { yPercent: 50 });
+
+        if (previousTitle) {
+          tl.fromTo(previousTitle, { yPercent: 0 }, { yPercent: -25 }, '<');
+        }
+      });
+
+      // Les fontes et les images changent les hauteurs : on recalcule après chargement.
+      window.addEventListener('load', () => ScrollTrigger.refresh());
+    }
+  </script>
 </Base>

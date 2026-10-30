@@ -12,7 +12,7 @@ npm run dev      # le port est affiché au démarrage
 npm run build
 ```
 
-Astro 7 + CSS maison. Aucune dépendance UI.
+Astro 7, CSS maison, GSAP 3.15 (ScrollTrigger) pour l’empilement des cuvées.
 
 ## Structure
 
@@ -44,6 +44,17 @@ Une entrée dans `src/data/cuvees.ts` :
 ```
 
 Le panneau, la planche d’accueil et la palette se mettent à jour seuls.
+
+## Mouvement
+
+Les cinq panneaux de `#cuvees` s’empilent au scroll : le panneau suivant recouvre le
+précédent, qui descend à mi-vitesse et dont le nom glisse en parallaxe. Implémentation
+GSAP / ScrollTrigger dans `src/pages/index.astro`, pilotée par les attributs
+`data-stacking-cards-item` et `data-stacking-cards-title`. Chaque panneau reçoit un
+`z-index` croissant (01 → 05) pour que le suivant recouvre toujours le précédent, même
+lorsque celui-ci est transformé.
+
+`prefers-reduced-motion: reduce` désactive l’effet : les panneaux défilent normalement.
 
 ## Choix à valider
 
