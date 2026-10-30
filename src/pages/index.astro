@@ -1,0 +1,272 @@
+---
+import Base from '../layouts/Base.astro';
+import LabelPlate from '../components/LabelPlate.astro';
+import CuveePanel from '../components/CuveePanel.astro';
+import { cuvees, palette } from '../data/cuvees';
+
+const total = String(cuvees.length).padStart(2, '0');
+---
+
+<Base
+  title="La Roche Buissière — Proposition de direction artistique"
+  description="Relevé du système graphique des étiquettes de La Roche Buissière, vignerons à Faucon, Vallée du Rhône."
+>
+  <header class="topbar">
+    <div class="flag topbar__flag" aria-hidden="true"><span></span><span></span></div>
+    <div class="wrap topbar__inner">
+      <a class="topbar__brand" href="#top">La Roche Buissière</a>
+      <nav class="topbar__nav" aria-label="Sections">
+        <a href="#cuvees">Cuvées</a>
+        <a href="#systeme">Le système</a>
+        <a href="#domaine">Le domaine</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <!-- ================= HERO ================= -->
+    <section class="hero wrap" id="top">
+      <div class="hero__meta">
+        <span class="micro">Vignerons à Faucon · Vallée du Rhône</span>
+        <span class="micro">Depuis 1998</span>
+      </div>
+
+      <h1 class="wordmark">
+        <span>La Roche</span>
+        <span>Buissière</span>
+      </h1>
+
+      <div class="hero__grid">
+        <p class="hero__cue micro">Les cuvées</p>
+        <p class="hero__lede">
+          Dix-huit hectares à 400 mètres d’altitude, entre Vaison-la-Romaine et
+          les contreforts des Alpes. Levures indigènes, ni collage ni filtration,
+          et une gamme qui tient dans cinq couleurs.
+        </p>
+      </div>
+    </section>
+
+    <div class="strip" aria-label="La gamme en cinq cuvées">
+      {
+        cuvees.map((c) => (
+          <figure>
+            <div aria-hidden="true">
+              <LabelPlate name={c.name} color={c.color} ink={c.ink} signature={c.signature} />
+            </div>
+            <figcaption>
+              <span>{c.name}</span>
+              <span>{c.index}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <!-- ================= MANIFESTE ================= -->
+    <section class="statement">
+      <div class="wrap statement__grid">
+        <p class="eyebrow statement__eyebrow">Le domaine</p>
+
+        <blockquote class="statement__quote">
+          <span class="qm" aria-hidden="true">«</span> La vinification naturelle
+          s’est <em>très vite</em> imposée à nous.
+          <span class="qm" aria-hidden="true">»</span>
+        </blockquote>
+
+        <p class="statement__body">
+          Dix-huit hectares entre 350 et 400 mètres, là où le mistral descend et
+          où la fraîcheur des coteaux retient la maturité du grenache. Une
+          agriculture biologique jamais interrompue depuis les années soixante-dix.
+        </p>
+
+        <p class="micro statement__sig">
+          Antoine &amp; Laurence Joly<br />
+          Faucon, Vaucluse
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= CUVÉES ================= -->
+    <div id="cuvees">
+      {cuvees.map((cuvee) => <CuveePanel cuvee={cuvee} total={total} />)}
+    </div>
+
+    <!-- ================= SYSTÈME ================= -->
+    <section class="section wrap" id="systeme">
+      <div class="section__head">
+        <p class="eyebrow">Relevé</p>
+        <h2 class="section__title">Ce que disent les étiquettes</h2>
+        <p class="section__intro">
+          Cinq cuvées, une seule grille. Les proportions ci-dessous sont mesurées
+          au pixel sur les étiquettes existantes : 9 % de couleur, 9 % de fanion,
+          9 % de marque, 9 % de fanion, 32 % de champ, 32 % de noir.
+        </p>
+      </div>
+
+      <div class="palette">
+        {
+          palette.map((p) => (
+            <div class="swatch" style={`--c:${p.hex}`}>
+              <div class="swatch__chip"></div>
+              <div class="swatch__meta">
+                <span class="swatch__name">{p.name}</span>
+                <span class="swatch__value">{p.hex}</span>
+                <span class="swatch__value">oklch({p.oklch})</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+
+      <div class="system__grid" style="margin-top: clamp(2.5rem, 6vw, 5rem)">
+        <div class="anatomy-block">
+          <div class="block__label">
+            <span class="eyebrow">Anatomie</span>
+            <span class="micro">Format 1:1</span>
+          </div>
+
+          <div class="anatomy" role="img" aria-label="Schéma des six bandes d’une étiquette">
+            <div class="anatomy__c"></div>
+            <div class="anatomy__flag"><i></i><i></i></div>
+            <div class="anatomy__brand">La Roche Buissière</div>
+            <div class="anatomy__flag"><i></i><i></i></div>
+            <div class="anatomy__field">Flonflons</div>
+            <div class="anatomy__dark">Antoine et Laurence Joly, vignerons. Faucon F-84110</div>
+          </div>
+
+          <ol class="legend">
+            <li><b>01</b><span>Couleur de cuvée</span><em>9 %</em></li>
+            <li><b>02</b><span>Fanion — gris 50 / encre 50</span><em>9 %</em></li>
+            <li><b>03</b><span>Bande de marque</span><em>9 %</em></li>
+            <li><b>04</b><span>Fanion — gris 50 / encre 50</span><em>9 %</em></li>
+            <li><b>05</b><span>Champ de la cuvée</span><em>32 %</em></li>
+            <li><b>06</b><span>Pied — signature</span><em>32 %</em></li>
+          </ol>
+        </div>
+
+        <div class="type-block">
+          <div class="block__label">
+            <span class="eyebrow">Typographie</span>
+            <span class="micro">Deux familles</span>
+          </div>
+
+          <div class="specimen">
+            <p class="specimen__aa" aria-hidden="true">Aa</p>
+
+            <div class="specimen__row">
+              <span class="specimen__brand">La Roche Buissière</span>
+              <span class="micro">Archivo — grotesque, approche large</span>
+            </div>
+
+            <div class="specimen__row">
+              <span class="specimen__name">Flonflons</span>
+              <span class="micro">Bodoni Moda — didone, substitut libre</span>
+            </div>
+
+            <p class="micro" style="color: color-mix(in srgb, var(--ink) 55%, transparent)">
+              Les deux fontes d’origine restent à identifier et à licencier.
+              Les substituts ci-dessus conservent squelette, contraste et proportions.
+            </p>
+          </div>
+        </div>
+
+        <div class="finding">
+          <p>
+            <b>Le fanion est fixe</b>
+            Le gris et le noir ne changent jamais d’une cuvée à l’autre. Seule la
+            couleur du champ varie : c’est le point d’articulation du système.
+          </p>
+          <p>
+            <b>Deux signatures coexistent</b>
+            « Antoine et Pierre » sur Le Claux et petit Jo, « Antoine et Laurence »
+            sur Flonflons, Gaïa et Prémices. À trancher avant toute refonte.
+          </p>
+          <p>
+            <b>Une couleur, un nom</b>
+            Aucun visuel, aucun texte courant sur l’étiquette. Le nom porte tout.
+            Le site reprend cette contrainte plutôt que de l’habiller.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= DOMAINE ================= -->
+    <section class="section wrap" id="domaine">
+      <div class="section__head">
+        <p class="eyebrow">Le domaine</p>
+        <h2 class="section__title">Entre Provence et Alpes</h2>
+        <p class="section__intro">
+          Repris en 1998, jamais sorti du bio. La cohérence du fond et celle de la
+          forme peuvent avancer ensemble.
+        </p>
+      </div>
+
+      <div class="domaine__grid">
+        <div class="domaine__body">
+          <p>
+            Installés en 1998 sur les vignes que menait Pierre Joly, Laurence et
+            Antoine n’ont jamais quitté l’agriculture biologique. Le père d’Antoine
+            travaillait déjà selon ces principes à la fin des années soixante-dix ;
+            la certification ECOCERT n’a fait qu’entériner une pratique.
+          </p>
+          <p>
+            Depuis 2003, les vins ne sont plus sulfités pendant la vinification ni
+            l’élevage. Les fermentations se font avec les levures indigènes, sans
+            collage ni filtration. Un sulfitage léger reste possible à la mise en
+            bouteilles, plafonné à 12 mg/L.
+          </p>
+          <p>
+            Et quand ils ne sont pas dans les vignes, Laurence et Antoine sont dans
+            les oliviers, dans l’aire Nyons, où la variété Tanche est reine.
+          </p>
+        </div>
+
+        <dl class="domaine__stats">
+          <div><dt>Installation</dt><dd>1998</dd></div>
+          <div><dt>Surface</dt><dd>18 ha</dd></div>
+          <div><dt>Altitude</dt><dd>350–400 m</dd></div>
+          <div><dt>Agriculture</dt><dd>Biologique</dd></div>
+          <div><dt>Sulfites</dt><dd>12 mg/L max</dd></div>
+          <div><dt>Appellations</dt><dd>Côtes du Rhône</dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= PIED ================= -->
+  <footer class="footer" id="pied">
+    <div class="wrap">
+      <div class="flag footer__flag" aria-hidden="true"><span></span><span></span></div>
+
+      <p class="footer__wordmark">La Roche<br />Buissière</p>
+
+      <div class="footer__grid">
+        <div class="footer__col">
+          <span class="eyebrow">Domaine</span>
+          <span>Laurence &amp; Antoine Joly</span>
+          <span>Faucon, F-84110</span>
+          <span>Vaucluse, France</span>
+        </div>
+        <div class="footer__col">
+          <span class="eyebrow">Contact</span>
+          <span>Visites sur rendez-vous</span>
+          <span>Vaison-la-Romaine, à 10 min</span>
+        </div>
+        <div class="footer__col">
+          <span class="eyebrow">Colophon</span>
+          <span>Proposition de direction artistique</span>
+          <span>Relevé chromatique et typographique</span>
+          <span>Maquette — document de travail</span>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>Antoine et Laurence Joly, vignerons. Faucon F-84110</span>
+        <span>Étude non diffusée · 2026</span>
+      </div>
+    </div>
+  </footer>
+
+</Base>

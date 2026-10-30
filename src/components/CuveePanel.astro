@@ -1,0 +1,31 @@
+---
+import type { Cuvee } from '../data/cuvees';
+
+interface Props {
+  cuvee: Cuvee;
+  total: string;
+}
+
+const { cuvee, total } = Astro.props;
+---
+
+<section
+  class="cuvee"
+  id={cuvee.slug}
+  style={`--c:${cuvee.color};--on:${cuvee.ink}`}
+  aria-labelledby={`${cuvee.slug}-name`}
+>
+  <header class="cuvee__top">
+    <span class="micro">{cuvee.index} — {total}</span>
+    <span class="micro">Cuvée</span>
+  </header>
+
+  <div class="cuvee__mid">
+    <h2 class="cuvee__name" id={`${cuvee.slug}-name`}>{cuvee.name}</h2>
+  </div>
+
+  <footer class="cuvee__foot">
+    <span class="micro">{cuvee.signature}</span>
+    <span class="micro">Vallée du Rhône</span>
+  </footer>
+</section>

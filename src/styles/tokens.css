@@ -1,0 +1,52 @@
+/* ============================================================
+   LA ROCHE BUISSIÈRE — design tokens
+   Toutes les valeurs sont relevées sur les étiquettes existantes.
+   Voir design/EXTRACTION.md pour les mesures.
+   ============================================================ */
+
+:root {
+  /* --- Couleurs de structure (constantes) --------------------- */
+  --ink: #19171a;            /* oklch(0.208 0.005 326) — noir des étiquettes */
+  --paper: #ffffff;          /* support */
+  --grey: #b8b9bb;           /* oklch(0.786 0.003 265) — gris du fanion */
+
+  /* --- Couleurs de cuvée (variables) -------------------------- */
+  --c-le-claux: #b8b9bb;     /* oklch(0.786 0.003 265) */
+  --c-flonflons: #da022b;    /* oklch(0.561 0.226 23.5) */
+  --c-gaia: #003b63;         /* oklch(0.342 0.088 246)  */
+  --c-petit-jo: #09a274;     /* oklch(0.631 0.133 164)  */
+  --c-premices: #01a1de;     /* oklch(0.669 0.141 234.5) */
+
+  /* --- Typographie -------------------------------------------- */
+  --sans: "Archivo Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --display: "Bodoni Moda Variable", "Bodoni MT", Didot, "Times New Roman", serif;
+
+  /* Échelle fluide, ratio ~1,25 */
+  --t-micro: 0.6875rem;                                  /* 11px — micro, tracking large */
+  --t-small: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
+  --t-body: clamp(1rem, 0.95rem + 0.22vw, 1.125rem);
+  --t-lead: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+  --t-h3: clamp(1.75rem, 1.3rem + 2vw, 3rem);
+  --t-h2: clamp(2.75rem, 1.6rem + 5.2vw, 6.5rem);
+  --t-display: clamp(3.5rem, 1.6rem + 11.5vw, 12rem);
+
+  /* --- Espacement (base 8) ------------------------------------ */
+  --s1: 0.5rem;
+  --s2: 0.75rem;
+  --s3: 1rem;
+  --s4: 1.5rem;
+  --s5: 2.5rem;
+  --s6: 4rem;
+  --s7: 6rem;
+  --s8: 10rem;
+
+  --pad: clamp(1.25rem, 4vw, 4.5rem);
+  --max: 1760px;
+
+  /* --- Structure ---------------------------------------------- */
+  --hair: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+  --hair-light: 1px solid color-mix(in srgb, var(--paper) 22%, transparent);
+  --band: 10px;             /* hauteur du fanion */
+  --header-h: 74px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
